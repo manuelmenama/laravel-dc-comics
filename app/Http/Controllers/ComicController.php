@@ -82,7 +82,8 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-        //
+        //dd($comic);
+        return view('pastas.edit', compact('comic'));
     }
 
     /**
@@ -94,7 +95,19 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
+        $form_data = $request->all();
+        //
 
+        //verifica della modifica dello slug
+        if($form_data['title'] != $comic->title){
+            $form_data['slug'] = Comic::generateSlug($form_data['title']);
+        }else{
+            $form_data['slug'] = $comic->slug;
+        }
+
+        $comic->update($form_data);
+
+        return redirect()->route('comics.show', $comic);
     }
 
 

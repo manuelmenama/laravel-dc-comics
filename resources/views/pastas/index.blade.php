@@ -26,6 +26,8 @@
                     <td>{{$comic->type}}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ route('comics.show', $comic) }}"><i class="fa-regular fa-eye"></i></a>
+                        <a class="btn btn-warning" href="{{ route('comics.edit', $comic) }}"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn btn-danger" href="{{ route('comics.show', $comic) }}"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>
 
