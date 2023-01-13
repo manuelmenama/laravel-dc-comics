@@ -14,7 +14,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::paginate(5);
+        $comics = Comic::orderBy('id', 'desc')->paginate(5);
 
         return view('pastas.index', compact('comics'));
     }
@@ -40,14 +40,21 @@ class ComicController extends Controller
         $form_data = $request->all();
 
         $new_comic = new Comic();
-        $new_comic->title = $form_data['title'];
-        $new_comic->slug = Comic::generateSlug($new_comic->title);
-        $new_comic->description = $form_data['description'];
-        $new_comic->thumb = $form_data['thumb'];
-        $new_comic->price = $form_data['price'];
-        $new_comic->series = $form_data['series'];
-        $new_comic->sale_date = $form_data['sale_date'];
-        $new_comic->type = $form_data['type'];
+
+        //questo è il metodo esteso senza fillable e fill
+        // $new_comic->title = $form_data['title'];
+        // $new_comic->slug = Comic::generateSlug($new_comic->title);
+        // $new_comic->description = $form_data['description'];
+        // $new_comic->thumb = $form_data['thumb'];
+        // $new_comic->price = $form_data['price'];
+        // $new_comic->series = $form_data['series'];
+        // $new_comic->sale_date = $form_data['sale_date'];
+        // $new_comic->type = $form_data['type'];
+
+        $form_data['slug'] = Comic::generateSlug($form_data['title']);
+
+        $new_comic->fill($form_data);
+
         $new_comic->save();
         //dd($new_comic);
 
