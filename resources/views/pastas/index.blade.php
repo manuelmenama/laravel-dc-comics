@@ -6,6 +6,16 @@
 
     <h1>Vista CRUD</h1>
 
+    @if (session('deleted'))
+
+        <div class="alert alert-success" role="alert">
+            {!! session('deleted') !!}
+        </div>
+
+    @endif
+
+
+
     <table class="table">
         <thead>
           <tr>
@@ -27,7 +37,12 @@
                     <td>
                         <a class="btn btn-primary" href="{{ route('comics.show', $comic) }}"><i class="fa-regular fa-eye"></i></a>
                         <a class="btn btn-warning" href="{{ route('comics.edit', $comic) }}"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn btn-danger" href="{{ route('comics.show', $comic) }}"><i class="fa-regular fa-trash-can"></i></a>
+                        {{-- <form onsubmit="return confirm('Confermi l\'eliminazione di {{ $comic->title }}')" class="d-inline" action="{{ route('comics.destroy', $comic) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can" title="delete"></i></button>
+                        </form> --}}
+                        @include('partials.form-delete', ['title'=>$comic->title, 'id'=>$comic->id])
                     </td>
                 </tr>
 
