@@ -125,4 +125,5 @@ class ComicController extends Controller
 
         return redirect()->route('comics.index')->with('deleted', "L'elemento $comic->title è stato eliminato correttamente");
     }
+
 }
